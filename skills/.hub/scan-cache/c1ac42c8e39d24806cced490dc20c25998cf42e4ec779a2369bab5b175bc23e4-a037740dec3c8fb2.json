@@ -1,0 +1,62 @@
+{
+  "bundle_hash": "sha256:c1ac42c8e39d24806cced490dc20c25998cf42e4ec779a2369bab5b175bc23e4",
+  "scanner_version": "skills-guard-v8",
+  "source": "official",
+  "source_url": "official/mcp/mcp-oauth-remote-gateway",
+  "verdict": "caution",
+  "trust_level": "builtin",
+  "findings": [
+    {
+      "pattern_id": "dump_all_env",
+      "severity": "high",
+      "category": "exfiltration",
+      "file": "SKILL.md",
+      "line": 101,
+      "match": "env | grep -iE \"HERMES_DASHBOARD_PUBLIC_URL|RAILWAY_PUBLIC_DOMAIN|RAILWAY_STATIC_URL|RAILWAY_SERVICE_.*_URL|PUBLIC_UR...",
+      "description": "dumps all environment variables"
+    },
+    {
+      "pattern_id": "dump_all_env",
+      "severity": "high",
+      "category": "exfiltration",
+      "file": "SKILL.md",
+      "line": 131,
+      "match": "env | grep -iE \"HERMES|RAILWAY|CONTAINER\"",
+      "description": "dumps all environment variables"
+    },
+    {
+      "pattern_id": "hardcoded_ip_port",
+      "severity": "medium",
+      "category": "network",
+      "file": "SKILL.md",
+      "line": 185,
+      "match": "\"redirect_uris\": [\"http://127.0.0.1:8765/callback\"],",
+      "description": "hardcoded IP address with port"
+    },
+    {
+      "pattern_id": "hardcoded_ip_port",
+      "severity": "medium",
+      "category": "network",
+      "file": "SKILL.md",
+      "line": 223,
+      "match": "After approving, your browser will try to load http://127.0.0.1:8765/callback",
+      "description": "hardcoded IP address with port"
+    },
+    {
+      "pattern_id": "hardcoded_ip_port",
+      "severity": "medium",
+      "category": "network",
+      "file": "SKILL.md",
+      "line": 263,
+      "match": "\"redirect_uris\": [\"http://127.0.0.1:8765/callback\"],",
+      "description": "hardcoded IP address with port"
+    }
+  ],
+  "rules": [
+    "dump_all_env",
+    "hardcoded_ip_port"
+  ],
+  "scanned_at": "2026-10-05T02:24:03.053986+00:00",
+  "summary": "mcp-oauth-remote-gateway: caution \u2014 5 finding(s) in exfiltration, network",
+  "fresh": true
+}

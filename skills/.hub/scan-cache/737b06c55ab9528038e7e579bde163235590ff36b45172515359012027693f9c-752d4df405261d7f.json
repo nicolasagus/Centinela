@@ -1,0 +1,88 @@
+{
+  "bundle_hash": "sha256:737b06c55ab9528038e7e579bde163235590ff36b45172515359012027693f9c",
+  "scanner_version": "skills-guard-v8",
+  "source": "official",
+  "source_url": "official/mlops/pytorch-lightning",
+  "verdict": "safe",
+  "trust_level": "builtin",
+  "findings": [
+    {
+      "pattern_id": "unpinned_pip_install",
+      "severity": "medium",
+      "category": "supply_chain",
+      "file": "SKILL.md",
+      "line": 23,
+      "match": "pip install lightning",
+      "description": "pip install without version pinning"
+    },
+    {
+      "pattern_id": "unpinned_pip_install",
+      "severity": "medium",
+      "category": "supply_chain",
+      "file": "references\\distributed.md",
+      "line": 276,
+      "match": "# pip install transformer-engine[pytorch]",
+      "description": "pip install without version pinning"
+    },
+    {
+      "pattern_id": "unpinned_pip_install",
+      "severity": "medium",
+      "category": "supply_chain",
+      "file": "references\\hyperparameter-tuning.md",
+      "line": 11,
+      "match": "pip install ray[tune]",
+      "description": "pip install without version pinning"
+    },
+    {
+      "pattern_id": "unpinned_pip_install",
+      "severity": "medium",
+      "category": "supply_chain",
+      "file": "references\\hyperparameter-tuning.md",
+      "line": 12,
+      "match": "pip install lightning",
+      "description": "pip install without version pinning"
+    },
+    {
+      "pattern_id": "unpinned_pip_install",
+      "severity": "medium",
+      "category": "supply_chain",
+      "file": "references\\hyperparameter-tuning.md",
+      "line": 102,
+      "match": "pip install optuna",
+      "description": "pip install without version pinning"
+    },
+    {
+      "pattern_id": "unpinned_pip_install",
+      "severity": "medium",
+      "category": "supply_chain",
+      "file": "references\\hyperparameter-tuning.md",
+      "line": 103,
+      "match": "pip install optuna-integration",
+      "description": "pip install without version pinning"
+    },
+    {
+      "pattern_id": "unpinned_pip_install",
+      "severity": "medium",
+      "category": "supply_chain",
+      "file": "references\\hyperparameter-tuning.md",
+      "line": 179,
+      "match": "pip install wandb",
+      "description": "pip install without version pinning"
+    },
+    {
+      "pattern_id": "unpinned_pip_install",
+      "severity": "medium",
+      "category": "supply_chain",
+      "file": "references\\hyperparameter-tuning.md",
+      "line": 251,
+      "match": "pip install hyperopt",
+      "description": "pip install without version pinning"
+    }
+  ],
+  "rules": [
+    "unpinned_pip_install"
+  ],
+  "scanned_at": "2026-10-05T02:24:31.126716+00:00",
+  "summary": "pytorch-lightning: safe \u2014 8 finding(s) in supply_chain",
+  "fresh": true
+}

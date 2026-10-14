@@ -1,0 +1,25 @@
+{
+  "bundle_hash": "sha256:96fce77a1074914ea410b979c67d2e8ce326ba553787f81aa75459524f2bb66f",
+  "scanner_version": "skills-guard-v8",
+  "source": "official",
+  "source_url": "official/web-development/scrollcraft",
+  "verdict": "safe",
+  "trust_level": "builtin",
+  "findings": [
+    {
+      "pattern_id": "unpinned_npm_install",
+      "severity": "medium",
+      "category": "supply_chain",
+      "file": "SKILL.md",
+      "line": 229,
+      "match": "- `scripts/shoot.mjs` needs Playwright (`npm install playwright` or",
+      "description": "npm install without version pinning"
+    }
+  ],
+  "rules": [
+    "unpinned_npm_install"
+  ],
+  "scanned_at": "2026-10-05T02:24:41.473336+00:00",
+  "summary": "scrollcraft: safe \u2014 1 finding(s) in supply_chain",
+  "fresh": true
+}

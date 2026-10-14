@@ -1,0 +1,13 @@
+{
+  "bundle_hash": "sha256:c708cdd11f94e914d74d1cdb8e08af1791aa5fef0336d3ef07956b18846547ea",
+  "scanner_version": "skills-guard-v8",
+  "source": "official",
+  "source_url": "official/autonomous-ai-agents/agent-merge-conflict-arbiter",
+  "verdict": "safe",
+  "trust_level": "builtin",
+  "findings": [],
+  "rules": [],
+  "scanned_at": "2026-10-05T02:22:00.021595+00:00",
+  "summary": "agent-merge-conflict-arbiter: clean scan, no threats detected",
+  "fresh": true
+}

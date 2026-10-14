@@ -1,0 +1,108 @@
+{
+  "bundle_hash": "sha256:1fdcfb2f45a53190789bd165ad8bc67dd56a55981b5281ca72f9d27efc2335a8",
+  "scanner_version": "skills-guard-v8",
+  "source": "official",
+  "source_url": "official/creative/unreal-mcp",
+  "verdict": "caution",
+  "trust_level": "builtin",
+  "findings": [
+    {
+      "pattern_id": "hardcoded_ip_port",
+      "severity": "medium",
+      "category": "network",
+      "file": "SKILL.md",
+      "line": 57,
+      "match": "**Auto Start Server**. Default bind is `http://127.0.0.1:8000/mcp`",
+      "description": "hardcoded IP address with port"
+    },
+    {
+      "pattern_id": "hardcoded_ip_port",
+      "severity": "medium",
+      "category": "network",
+      "file": "SKILL.md",
+      "line": 67,
+      "match": "`http://127.0.0.1:8000/mcp` and probes the live server for its tools. Run it",
+      "description": "hardcoded IP address with port"
+    },
+    {
+      "pattern_id": "hermes_config_ref",
+      "severity": "low",
+      "category": "persistence",
+      "file": "SKILL.md",
+      "line": 70,
+      "match": "`~/.hermes/config.yaml` under `mcp_servers.unreal-engine` to match.",
+      "description": "references Hermes configuration files (informational; only modification intent is scored)"
+    },
+    {
+      "pattern_id": "hermes_config_ref",
+      "severity": "low",
+      "category": "persistence",
+      "file": "SKILL.md",
+      "line": 228,
+      "match": "`mcp_servers.unreal-engine.timeout` in `~/.hermes/config.yaml` for",
+      "description": "references Hermes configuration files (informational; only modification intent is scored)"
+    },
+    {
+      "pattern_id": "hardcoded_ip_port",
+      "severity": "medium",
+      "category": "network",
+      "file": "references\\pitfalls.md",
+      "line": 43,
+      "match": "both sides. Verify: `curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8000/mcp`",
+      "description": "hardcoded IP address with port"
+    },
+    {
+      "pattern_id": "sudo_usage",
+      "severity": "high",
+      "category": "privilege_escalation",
+      "file": "references\\pitfalls.md",
+      "line": 32,
+      "match": "it: `sudo xcode-select -s /path/to/Xcode.app`. Verify with",
+      "description": "uses sudo (privilege escalation)"
+    },
+    {
+      "pattern_id": "hermes_config_ref",
+      "severity": "low",
+      "category": "persistence",
+      "file": "references\\pitfalls.md",
+      "line": 42,
+      "match": "`url` in `~/.hermes/config.yaml` (`mcp_servers.unreal-engine`), then restart",
+      "description": "references Hermes configuration files (informational; only modification intent is scored)"
+    },
+    {
+      "pattern_id": "hermes_config_ref",
+      "severity": "low",
+      "category": "persistence",
+      "file": "references\\pitfalls.md",
+      "line": 58,
+      "match": "lives in `~/.hermes/config.yaml` via `hermes mcp install unreal-engine`.",
+      "description": "references Hermes configuration files (informational; only modification intent is scored)"
+    },
+    {
+      "pattern_id": "hardcoded_ip_port",
+      "severity": "medium",
+      "category": "network",
+      "file": "references\\tool-surface.md",
+      "line": 12,
+      "match": "(default `http://127.0.0.1:8000/mcp`, loopback-only, no auth, HTTP + SSE",
+      "description": "hardcoded IP address with port"
+    },
+    {
+      "pattern_id": "hardcoded_ip_port",
+      "severity": "medium",
+      "category": "network",
+      "file": "references\\tool-surface.md",
+      "line": 274,
+      "match": "`http://127.0.0.1:8000/mcp`, transport \"Streamable HTTP\") lists every",
+      "description": "hardcoded IP address with port"
+    }
+  ],
+  "rules": [
+    "hardcoded_ip_port",
+    "hermes_config_ref",
+    "sudo_usage"
+  ],
+  "scanned_at": "2026-10-05T02:30:48.570443+00:00",
+  "summary": "unreal-mcp: caution \u2014 10 finding(s) in network, persistence, privilege_escalation",
+  "fresh": true
+}

@@ -1,0 +1,13 @@
+{
+  "bundle_hash": "sha256:1d239ca3d9cc326e68d324b6b287e88729d33de404c288e6261c0c534033dcf8",
+  "scanner_version": "skills-guard-v8",
+  "source": "official",
+  "source_url": "official/software-development/pr-lens",
+  "verdict": "safe",
+  "trust_level": "builtin",
+  "findings": [],
+  "rules": [],
+  "scanned_at": "2026-10-05T14:01:31.666229+00:00",
+  "summary": "pr-lens: clean scan, no threats detected",
+  "fresh": true
+}

@@ -1,0 +1,10 @@
+scratch/
+cache/
+.hermes/
+audit-log.json
+node_modules/
+dist/
+*.log
+.env
+.env.*
+*.lock

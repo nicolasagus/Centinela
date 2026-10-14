@@ -1,0 +1,25 @@
+{
+  "bundle_hash": "sha256:75735ec9f1a7678d22496e799ffc302e33ec3a8c20e21d7d5074d4cdfcefa65d",
+  "scanner_version": "skills-guard-v8",
+  "source": "official",
+  "source_url": "official/web-development/har-derived-api-client",
+  "verdict": "safe",
+  "trust_level": "builtin",
+  "findings": [
+    {
+      "pattern_id": "unpinned_pip_install",
+      "severity": "medium",
+      "category": "supply_chain",
+      "file": "SKILL.md",
+      "line": 44,
+      "match": "- `pip install playwright` then `playwright install chromium --no-shell`",
+      "description": "pip install without version pinning"
+    }
+  ],
+  "rules": [
+    "unpinned_pip_install"
+  ],
+  "scanned_at": "2026-10-05T02:23:14.881670+00:00",
+  "summary": "har-derived-api-client: safe \u2014 1 finding(s) in supply_chain",
+  "fresh": true
+}

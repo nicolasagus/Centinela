@@ -1,0 +1,25 @@
+{
+  "bundle_hash": "sha256:595b2c14c9e67d0c5cea0d57ae938d19d4093f5fa4f71bc2ea549eca8e782270",
+  "scanner_version": "skills-guard-v8",
+  "source": "official",
+  "source_url": "official/creative/system-atlas",
+  "verdict": "safe",
+  "trust_level": "builtin",
+  "findings": [
+    {
+      "pattern_id": "unpinned_npm_install",
+      "severity": "medium",
+      "category": "supply_chain",
+      "file": "SKILL.md",
+      "line": 29,
+      "match": "- Node.js (any recent version; the build uses only `node:fs`, `node:path`, `node:url` \u2014 no npm install needed).",
+      "description": "npm install without version pinning"
+    }
+  ],
+  "rules": [
+    "unpinned_npm_install"
+  ],
+  "scanned_at": "2026-10-05T02:24:59.414482+00:00",
+  "summary": "system-atlas: safe \u2014 1 finding(s) in supply_chain",
+  "fresh": true
+}
