@@ -1,0 +1,7 @@
+{
+  "max_self_healing_attempts": 3,
+  "max_context_tokens": 16384,
+  "max_sandbox_execution_seconds": 90,
+  "action_on_trip": "HALT_AND_DUMP_FORENSIC_LOG",
+  "dump_target": "audit-log.json"
+}
