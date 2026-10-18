@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "7342709b-10c1-41b3-ac85-751187df561a",
+  "status": "current",
+  "command": "deliver",
+  "type": "lifecycle",
+  "input": "C:\\Users\\nicol\\AppData\\Local\\hermes\\profiles\\centinela\\.archify\\lifecycle-centinela-fsm-20261018-194228\\candidate.json",
+  "output": "C:\\Users\\nicol\\AppData\\Local\\hermes\\profiles\\centinela\\.archify\\lifecycle-centinela-fsm-20261018-194228\\output.html",
+  "specification": {
+    "sha256": "18630a88a8f678a77012096bd1811d147f1672cf840ddba5f10787df1edce9d4",
+    "bytes": 4173
+  },
+  "artifact": {
+    "sha256": "145943dff2fa4046c2a6d3e6939ce7cea3b00540e84265e1b27e3f2ea471c18d",
+    "bytes": 829120
+  }
+}
