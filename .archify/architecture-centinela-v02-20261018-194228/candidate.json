@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Centinela v0.2-dev \u2014 Gobernanza Determinista",
+    "locale": "es",
+    "output": ".archify/architecture-centinela-v02-20261018-194228/output.html",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "mode": "grid",
+    "origin": [
+      40,
+      40
+    ],
+    "cols": 12,
+    "gapX": 24,
+    "gapY": 24,
+    "cellW": 160,
+    "cellH": 72
+  },
+  "components": [
+    {
+      "id": "SOUL",
+      "type": "backend",
+      "label": "SOUL.md",
+      "sublabel": "GOBERNANZA \u2014 FASE 2",
+      "row": 0,
+      "col": 0,
+      "size": [
+        180,
+        60
+      ],
+      "tag": "Gobernanza"
+    },
+    {
+      "id": "RESPONSE_GRAMMAR",
+      "type": "backend",
+      "label": "response-grammar.json",
+      "sublabel": "Schema CentinelaStepOutput",
+      "row": 0,
+      "col": 2,
+      "size": [
+        180,
+        72
+      ]
+    },
+    {
+      "id": "CIRCUIT_BREAKER",
+      "type": "security",
+      "label": "Disyuntor de Contexto",
+      "sublabel": "3 iter. SELF_HEAL \u2192 FAIL",
+      "row": 0,
+      "col": 4,
+      "size": [
+        160,
+        72
+      ]
+    },
+    {
+      "id": "GRAPH_NAVIGATOR",
+      "type": "backend",
+      "label": "DependencyGraphNavigator",
+      "sublabel": "Dijkstra + prune_context_subgraph",
+      "row": 0,
+      "col": 6,
+      "size": [
+        180,
+        72
+      ],
+      "tag": "16384 tokens budget"
+    },
+    {
+      "id": "MEMORY",
+      "type": "database",
+      "label": "Memoria Persistente",
+      "sublabel": "USER.md + entries",
+      "row": 1,
+      "col": 0,
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "SKILLS",
+      "type": "database",
+      "label": "Skills",
+      "sublabel": "archify, hermes-agent, TDD...",
+      "row": 1,
+      "col": 2,
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "TOOLS",
+      "type": "messagebus",
+      "label": "Tool Gateway",
+      "sublabel": "17+ herramientas",
+      "row": 1,
+      "col": 4,
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "KANBAN",
+      "type": "backend",
+      "label": "Kanban Board",
+      "sublabel": "Task routing + handoff",
+      "row": 1,
+      "col": 6,
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "STATE_DB",
+      "type": "database",
+      "label": "state.db",
+      "sublabel": "SQLite + FTS5",
+      "row": 2,
+      "col": 0,
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "SESSIONS",
+      "type": "database",
+      "label": "Sesiones",
+      "sublabel": "*.jsonl transcripts",
+      "row": 2,
+      "col": 2,
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "CIRCUIT_STATE",
+      "type": "backend",
+      "label": "Estado Circuit Breaker",
+      "sublabel": "auto-heal count + context budget",
+      "row": 0,
+      "col": 8,
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "AUDIT_LOG",
+      "type": "database",
+      "label": "audit-log.json",
+      "sublabel": "Volcado forense",
+      "row": 2,
+      "col": 6,
+      "size": [
+        160,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "GOBERNANZA \u2014 FASE 2",
+      "wraps": [
+        "SOUL",
+        "RESPONSE_GRAMMAR",
+        "CIRCUIT_BREAKER",
+        "GRAPH_NAVIGATOR",
+        "CIRCUIT_STATE"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Ejecuci\u00f3n",
+      "wraps": [
+        "TOOLS",
+        "KANBAN",
+        "MEMORY",
+        "SKILLS"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Persistencia",
+      "wraps": [
+        "STATE_DB",
+        "SESSIONS",
+        "AUDIT_LOG"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "soul-to-grammar",
+      "from": "SOUL",
+      "to": "RESPONSE_GRAMMAR",
+      "label": "define schema",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "soul-to-breaker",
+      "from": "SOUL",
+      "to": "CIRCUIT_BREAKER",
+      "label": "define disyuntor",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "grammar-to-breaker",
+      "from": "RESPONSE_GRAMMAR",
+      "to": "CIRCUIT_BREAKER",
+      "label": "step AUDIT",
+      "variant": "dashed"
+    },
+    {
+      "id": "breaker-to-navigator",
+      "from": "CIRCUIT_BREAKER",
+      "to": "GRAPH_NAVIGATOR",
+      "label": "max_token_budget",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "grammar-to-state",
+      "from": "RESPONSE_GRAMMAR",
+      "to": "STATE_DB",
+      "label": "COMPLETED/FAILED persist",
+      "variant": "dashed"
+    },
+    {
+      "id": "breaker-to-circuit-state",
+      "from": "CIRCUIT_BREAKER",
+      "to": "CIRCUIT_STATE",
+      "label": "auto-heal count++",
+      "variant": "security"
+    },
+    {
+      "id": "breaker-to-audit",
+      "from": "CIRCUIT_BREAKER",
+      "to": "AUDIT_LOG",
+      "label": "volcado forense",
+      "variant": "security",
+      "labelAt": [
+        450,
+        128
+      ]
+    },
+    {
+      "id": "navigator-to-audit",
+      "from": "GRAPH_NAVIGATOR",
+      "to": "AUDIT_LOG",
+      "label": "prune context",
+      "variant": "dashed"
+    },
+    {
+      "id": "tools-to-memory",
+      "from": "TOOLS",
+      "to": "MEMORY",
+      "label": "read/write facts"
+    },
+    {
+      "id": "tools-to-skills",
+      "from": "TOOLS",
+      "to": "SKILLS",
+      "label": "load skill_view"
+    },
+    {
+      "id": "tools-to-kanban",
+      "from": "TOOLS",
+      "to": "KANBAN",
+      "label": "task routing"
+    },
+    {
+      "id": "memory-to-state",
+      "from": "MEMORY",
+      "to": "STATE_DB",
+      "label": "durable state",
+      "labelAt": [
+        120,
+        128
+      ]
+    },
+    {
+      "id": "sessions-to-state",
+      "from": "SESSIONS",
+      "to": "STATE_DB",
+      "label": "transcripts"
+    },
+    {
+      "id": "circuit-state-to-audit",
+      "from": "CIRCUIT_STATE",
+      "to": "AUDIT_LOG",
+      "label": "report"
+    },
+    {
+      "id": "grammar-to-audit",
+      "from": "RESPONSE_GRAMMAR",
+      "to": "AUDIT_LOG",
+      "label": "step=AUDIT payload",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Gobernanza FASE 2",
+      "items": [
+        "SOUL.md define gobernanza inline; response-grammar.json es schema JSON Draft-07",
+        "Disyuntor: 3 iteraciones SELF_HEAL sin pasar tests \u2192 FAILED + audit-log.json",
+        "Contexto m\u00e1ximo: 16384 tokens; graph-navigator.py prune_context_subgraph aplica el budget",
+        "Zero-Fluff: sin texto de cortes\u00eda; toda respuesta es estructura JSON seg\u00fan schema"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Respuesta Structurada",
+      "items": [
+        "step: [VISUAL_PLAN, TDD_RED, IMPLEMENT_GREEN, SELF_HEAL, AUDIT]",
+        "status: [IN_PROGRESS, GATE_PENDING, COMPLETED, FAILED]",
+        "artifacts: array de {path, action, content}",
+        "execution_payload: comandos sandbox Alpine",
+        "additionalProperties: false \u2014 estricto"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Graph Navigator",
+      "items": [
+        "shortest_path(start, target) \u2192 (costo, ruta) usando Dijkstra",
+        "prune_context_subgraph(root, max_budget) filtra nodos dentro del budget",
+        "Budget configurable: default 16384 tokens del Circuit Breaker",
+        "M\u00f3dulo autoejecutable: __main__ con grafo mock TypeScript"
+      ]
+    }
+  ]
+}

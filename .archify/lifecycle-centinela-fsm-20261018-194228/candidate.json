@@ -1,0 +1,175 @@
+{
+  "schema_version": 3,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Centinela v0.2-dev \u2014 FSM de Tareas",
+    "locale": "es",
+    "output": ".archify/lifecycle-centinela-fsm-20261018-194228/output.html",
+    "quality_profile": "showcase"
+  },
+  "mainPath": [
+    "idle",
+    "task_start",
+    "visuaL_plan",
+    "tdd_red",
+    "implement_green"
+  ],
+  "states": [
+    {
+      "id": "idle",
+      "type": "neutral",
+      "label": "idle",
+      "sublabel": "esperando tarea"
+    },
+    {
+      "id": "task_start",
+      "type": "active",
+      "label": "task_start",
+      "sublabel": "tarea recibida"
+    },
+    {
+      "id": "visuaL_plan",
+      "type": "active",
+      "label": "VISUAL_PLAN",
+      "sublabel": "planificaci\u00f3n visual"
+    },
+    {
+      "id": "tdd_red",
+      "type": "active",
+      "label": "TDD_RED",
+      "sublabel": "test falla (RED)"
+    },
+    {
+      "id": "implement_green",
+      "type": "active",
+      "label": "IMPLEMENT_GREEN",
+      "sublabel": "implementa (GREEN)"
+    },
+    {
+      "id": "self_heal",
+      "type": "decision",
+      "label": "SELF_HEAL",
+      "sublabel": "auto-heal iter #{n}"
+    },
+    {
+      "id": "test_pass",
+      "type": "decision",
+      "label": "tests_pass?",
+      "sublabel": "\u00bfsuite pasa?"
+    },
+    {
+      "id": "gate_pending",
+      "type": "waiting",
+      "label": "GATE_PENDING",
+      "sublabel": "esperando revisi\u00f3n"
+    },
+    {
+      "id": "completed",
+      "type": "success",
+      "label": "COMPLETED",
+      "sublabel": "tarea completada"
+    },
+    {
+      "id": "circuit_broken",
+      "type": "failure",
+      "label": "FAILED",
+      "sublabel": "Circuit Breaker \u2192 n\u22653",
+      "step": "AUDIT"
+    }
+  ],
+  "transitions": [
+    {
+      "from": "idle",
+      "to": "task_start",
+      "label": "recibe"
+    },
+    {
+      "from": "task_start",
+      "to": "visuaL_plan",
+      "label": "planifica"
+    },
+    {
+      "from": "visuaL_plan",
+      "to": "tdd_red",
+      "label": "listo"
+    },
+    {
+      "from": "tdd_red",
+      "to": "implement_green",
+      "label": "define"
+    },
+    {
+      "from": "implement_green",
+      "to": "test_pass",
+      "label": "implementado"
+    },
+    {
+      "from": "test_pass",
+      "to": "completed",
+      "label": "s\u00ed"
+    },
+    {
+      "from": "test_pass",
+      "to": "self_heal",
+      "label": "no \u2014 falla"
+    },
+    {
+      "from": "self_heal",
+      "to": "implement_green",
+      "label": "n<3: re-implementa"
+    },
+    {
+      "from": "self_heal",
+      "to": "circuit_broken",
+      "label": "n\u22653: aborta",
+      "note": "FAILED + audit-log.json",
+      "variant": "security"
+    },
+    {
+      "from": "implement_green",
+      "to": "gate_pending",
+      "label": "listo para review"
+    },
+    {
+      "from": "gate_pending",
+      "to": "completed",
+      "label": "aprobado"
+    },
+    {
+      "from": "gate_pending",
+      "to": "task_start",
+      "label": "cambio req.",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "FSM \u2014 Flujo Principal",
+      "items": [
+        "idle \u2192 task_start \u2192 VISUAL_PLAN \u2192 TDD_RED \u2192 IMPLEMENT_GREEN",
+        "Cada IMPLEMENT_GREEN verifica suite de tests",
+        "GATE_PENDING: espera review antes de COMPLETED"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Disyuntor de Contexto",
+      "items": [
+        "Self-Heal loop: m\u00e1ximo 3 iteraciones (n=1,2,3)",
+        "Cada iteraci\u00f3n vuelve a IMPLEMENT_GREEN",
+        "n\u22653 \u2192 FAILED + volcado forense audit-log.json",
+        "Contexto m\u00e1ximo: 16384 tokens por sesi\u00f3n"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Response Grammar",
+      "items": [
+        "step enum: [VISUAL_PLAN, TDD_RED, IMPLEMENT_GREEN, SELF_HEAL, AUDIT]",
+        "status enum: [IN_PROGRESS, GATE_PENDING, COMPLETED, FAILED]",
+        "additionalProperties: false \u2014 payload estricto"
+      ]
+    }
+  ]
+}
