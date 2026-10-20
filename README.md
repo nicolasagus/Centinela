@@ -24,4 +24,11 @@
 **- \*\*Circuit Breaker:\*\* Monitoreo y límite rígido de 3 iteraciones de autoreparación y 16.384 tokens máximos de contexto (`core/guards/circuit-breaker.config.json`).**
 
 **- \*\*Graph-RAG Memory (Dijkstra):\*\* Navegación determinista de árboles de dependencias y podado de contexto mediante camino mínimo (`core/memory/graph-navigator.py`).**
+## Fase 3: Orquestación Distribuida, Memoria Híbrida y Zero-Trust (v0.3)
+
+- **Zero-Trust Security Guard:** Políticas restrictivas de ejecución de binarios y jaula de filesystem (`core/security/zero-trust.config.json` + `guard_validator.py`).
+- **Master-Worker Orchestrator:** Despachador desacoplado con contratos tipados de tarea y aislamiento de namespace (`core/orchestrator/orchestrator.py`).
+- **Graph-Vector Fusion Memory:** Búsqueda semántica TF-IDF por similitud coseno combinada con podado de dependencias Dijkstra (`core/memory/hybrid_memory.py`).
+- **Human-in-the-Loop Gateway:** Interceptor de compuertas interactivas para tareas de riesgo alto (`core/gateway/approval_gateway.py`).
+- **Decision Telemetry Engine:** Caja negra en streaming JSONL (`audit-telemetry.jsonl` + `core/telemetry/telemetry_engine.py`).
 
