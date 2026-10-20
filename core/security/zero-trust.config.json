@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CentinelaZeroTrustPolicy",
+  "version": "1.0.0",
+  "policy": {
+    "default_action": "DENY",
+    "require_human_gate_for_writes": false,
+    "allowed_commands": [
+      {
+        "binary": "python",
+        "allowed_paths": ["core/", "tests/"],
+        "max_timeout_seconds": 30
+      },
+      {
+        "binary": "git",
+        "allowed_subcommands": ["status", "diff", "log", "add", "commit", "branch"],
+        "blocked_flags": ["--force", "-f", "reset --hard"]
+      },
+      {
+        "binary": "docker",
+        "enforce_flags": ["--rm", "--network=none", "--memory=1g", "--cpus=2"],
+        "allowed_images": ["alpine:latest", "node:20-alpine"]
+      }
+    ],
+    "filesystem_jail": {
+      "writable_roots": [
+        ".archify/",
+        "core/",
+        "tests/",
+        "audit-log.json"
+      ],
+      "immutable_roots": [
+        ".git/",
+        "LICENSE.txt"
+      ]
+    }
+  }
+}
