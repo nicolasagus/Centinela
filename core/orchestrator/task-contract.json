@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CentinelaTaskContract",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["task_id", "assigned_worker", "command", "sandbox_isolated", "status"],
+  "properties": {
+    "task_id": {
+      "type": "string"
+    },
+    "assigned_worker": {
+      "type": "string",
+      "enum": ["docker-runner", "python-runtime", "lint-checker"]
+    },
+    "command": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sandbox_isolated": {
+      "type": "boolean"
+    },
+    "timeout_ms": {
+      "type": "integer",
+      "default": 30000
+    },
+    "status": {
+      "type": "string",
+      "enum": ["PENDING", "VALIDATING_SECURITY", "RUNNING", "COMPLETED", "REJECTED_SECURITY", "FAILED"]
+    }
+  },
+  "additionalProperties": false
+}
